@@ -18,7 +18,7 @@ export const ActionButton: React.FC<{ type: string }> = ({ type }) => {
   }
 
   return (
-    <Button className={`action_button-${type}`} variant="contained" >
+    <Button className={`action_button--${type}`} variant="contained" >
       {buttonIcon}
     </Button >
   )

@@ -93,8 +93,29 @@ code
     font-size: 20px
     fill: $white
 
-  &-accept
+  &--accept
     background: linear-gradient(to top, #124559, #2794BF)
 
-  &-decline
+  &--decline
     background: linear-gradient(to top, #59121F, #EC4A4A)
+
+.user_photo
+  padding: 7px
+  .user_photo--frame
+    border-radius: 50%
+    width: 100px
+    height: 100px
+
+.profile_page
+  &__info_input
+    padding: 10px
+
+  &__info_select
+    display: flex
+    min-width: 100%
+
+  &__actions
+    display: flex
+    flex-direction: row
+    justify-content: flex-end
+    padding: 10px
