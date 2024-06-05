@@ -1,12 +1,15 @@
 import React from 'react';
-import './App.css';
+import { ThemeProvider } from '@mui/material';
+import theme from './theme';
 import RootComponent from './RootComponent';
 
 function App() {
   return (
-    <div className="App">
-      <RootComponent />
-    </div>
+    <ThemeProvider theme={theme}>
+      <div className="App">
+        <RootComponent />
+      </div>
+    </ThemeProvider>
   );
 }
 
