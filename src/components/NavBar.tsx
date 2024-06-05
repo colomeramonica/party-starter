@@ -1,8 +1,9 @@
 import { ChatBubbleOutline, Person2Outlined } from '@mui/icons-material'
-import { ReactComponent as DiceIcon } from '../assets/d20.svg'
+import { ReactComponent as DiceIcon } from '../assets/icons/d20.svg'
+import { ReactComponent as UserIcon } from '../assets/icons/user_circle.svg'
+import { ReactComponent as ChatIcon } from '../assets/icons/chat.svg'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { SvgIcon } from '@mui/material'
 
 const NavBar: React.FC = () => {
   const navigate = useNavigate()
@@ -22,13 +23,13 @@ const NavBar: React.FC = () => {
   return (
     <div className="navbar">
       <span className="navbar__icons-user" onClick={() => redirectToUserPage()}>
-        <Person2Outlined />
+        <UserIcon style={{ width: '24px' }}/>
       </span>
       <span className="navbar__icons-dice" onClick={() => redirectToHomePage()}>
-        <SvgIcon component={DiceIcon} inheritViewBox ></SvgIcon>
+        <DiceIcon style={{ width: '30px', height: '30px', fill: '#1EA896'}}/>
       </span>
       <span className="navbar__icons-chat" onClick={() => redirectToChatPage()}>
-        <ChatBubbleOutline />
+        <ChatIcon style={{ width: '24px' }}/>
       </span>
     </div>
   )

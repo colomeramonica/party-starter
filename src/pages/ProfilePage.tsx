@@ -1,48 +1,91 @@
 import React from 'react'
 import UserPhoto from '../components/UserPhoto'
-import { Box, Button, TextField, Select, MenuItem, InputLabel, FormControl } from '@mui/material'
-import { AccountCircle, EmailRounded } from '@mui/icons-material'
+import { ReactComponent as UserIcon } from '../assets/icons/user_circle.svg'
+import { ReactComponent as WriteIcon } from '../assets/icons/write.svg'
+import { ReactComponent as RaceIcon } from '../assets/icons/user_crown.svg'
+import { ReactComponent as ClassIcon } from '../assets/icons/witch.svg'
+
+import { Box, Button, TextField, Select, MenuItem, InputLabel, FormControl, InputAdornment, ListItemIcon, ListItemText, SelectChangeEvent } from '@mui/material'
 
 const ProfilePage: React.FC = () => {
   const [race, setRace] = React.useState('');
+  const [charClass, setCharClass] = React.useState('');
 
-  const handleRaceChange = (race: string) => {
-    setRace(race);
+  const handleRaceChange = (event: SelectChangeEvent<string>) => {
+    setRace(event.target.value);
   }
+
+  const handleClassChange = (event: SelectChangeEvent<string>) => {
+    setCharClass(event.target.value);
+  }
+
   return (
     <form>
       <div className="profile_page__photo-frame">
         <UserPhoto />
       </div>
-      <div className="profile_page__info">
-        <Box sx={{ display: 'flex', alignItems: 'flex-end' }} className="profile_page__info_input">
-          <AccountCircle sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
-          <TextField id="input-with-sx" label="Name" variant="standard" />
-        </Box>
-        <Box sx={{ display: 'flex', alignItems: 'flex-end' }} className="profile_page__info_input">
-          <EmailRounded sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
-          <TextField
-            label="Descrição"
-            multiline
-            rows={2}
-            maxRows={4}
-          />
-        </Box>
-        <FormControl className="profile_page__info_input">
-          <InputLabel>Raça</InputLabel>
-          <Select className="profile_page__info_select">
-            <MenuItem value="Artífice">Artífice</MenuItem>
-            <MenuItem value="Bárbaro">Bárbaro</MenuItem>
-            <MenuItem value="Bardo">Bardo</MenuItem>
-            <MenuItem value="Bruxo">Bruxo</MenuItem>
-            <MenuItem value="Clérigo">Clérigo</MenuItem>
-            <MenuItem value="Druida">Druida</MenuItem>
-            <MenuItem value="Feiticeiro">Feiticeiro</MenuItem>
-            <MenuItem value="Guardião">Guardião</MenuItem>
-            <MenuItem value="Guerreiro">Guerreiro</MenuItem>
-            <MenuItem value="Ladino">Ladino</MenuItem>
-            <MenuItem value="Mago">Mago</MenuItem>
-            <MenuItem value="Monge">Monge</MenuItem>
+      <div className="profile_page__info_input">
+        <TextField
+          id="input-with-icon-textfield"
+          label="Name"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <UserIcon style={{ width: '20px', height: '20px', fill: '#2C363F' }} />
+              </InputAdornment>
+            ),
+          }}
+          variant="outlined"
+          size="small"
+          color="secondary"
+        />
+      </div>
+      <div className="profile_page__info_input">
+        <TextField
+          id="input-with-icon-textfield"
+          label="Description"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <WriteIcon style={{ width: '20px', height: '20px', fill: '#2C363F' }} />
+              </InputAdornment>
+            ),
+          }}
+          variant="outlined"
+          size="small"
+          color="secondary"
+        />
+      </div>
+      <div className="profile_page__info_input">
+        <TextField
+          id="input-with-icon-textfield"
+          label="Race"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <RaceIcon style={{ width: '20px', height: '20px', fill: '#2C363F' }} />
+              </InputAdornment>
+            ),
+          }}
+          variant="outlined"
+          size="small"
+          color="secondary"
+        />
+      </div>
+      <div className="profile_page__info_input" style={{ display: 'flex', flexDirection: 'column' }}>
+        <FormControl>
+          <InputLabel htmlFor="race-select" style={{ display: 'flex', alignItems: 'center' }}>
+            <ClassIcon style={{ width: '20px', height: '20px', fill: '#2C363F' }} />
+            Class
+          </InputLabel>
+          <Select
+            style={{ width: '100%' }}
+            size="small"
+            id="race-select"
+            value={charClass}
+            placeholder={charClass}
+            onChange={handleClassChange}
+            color="secondary">
           </Select>
         </FormControl>
       </div>
