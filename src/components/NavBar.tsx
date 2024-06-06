@@ -22,13 +22,13 @@ const NavBar: React.FC = () => {
   return (
     <div className="navbar">
       <span className="navbar__icons-user" onClick={() => redirectToUserPage()}>
-        <UserIcon style={{ width: '24px' }} />
+        <UserIcon style={{ width: '24px', height: '24px' }} />
       </span>
       <span className="navbar__icons-dice" onClick={() => redirectToHomePage()}>
         <DiceIcon style={{ width: '30px', height: '30px', fill: '#1EA896' }} />
       </span>
       <span className="navbar__icons-chat" onClick={() => redirectToChatPage()}>
-        <ChatIcon style={{ width: '24px' }} />
+        <ChatIcon style={{ width: '24px', height: '24px' }} />
       </span>
     </div>
   )
