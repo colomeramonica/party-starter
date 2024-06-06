@@ -25,6 +25,7 @@ code
 .navbar
   display: flex
   flex-direction: row
+  cursor: pointer
   justify-content: space-between
   margin: $small-space
 
@@ -56,6 +57,8 @@ code
   &__info
     display: flex
     flex-direction: column
+    justify-content: center
+    align-items: center
     padding: 7px
     color: $main-text-color
 
@@ -71,8 +74,10 @@ code
   &__info-attributes
     display: flex
     justify-content: space-around
+
     &-item
-      padding: 5px
+      padding: 5px 10px
+      margin-right: 5px
       background-color: #eff0f0
       border-radius: 10px
       text-align: center
@@ -142,48 +147,49 @@ code
     justify-content: flex-end
     padding: 5px 10px
 
-  &__section_gallery
-    margin-right: 10px
-    &_images
-      display: flex
-      flex-direction: row
-      justify-content: flex-start
-      padding: 5px 10px
+.photo_gallery
+  margin-right: 10px
+  display: flex
+  flex-direction: row
+  justify-content: flex-start
+  padding: 5px 10px
 
-      &_preview
-        border-radius: 10px
-        display: flex
-        justify-content: center
-        align-items: center
+.photo_gallery_images_preview
+  border-radius: 10px
+  display: flex
+  justify-content: center
+  align-items: center
 
-      &_item
-        border-radius: 10px
-        display: flex
-        justify-content: center
-        align-items: center
-        box-shadow: 0px 3px 4px 1px rgba(0, 0, 0, 0.2)
-        margin-right: 10px
+.photo_gallery_images_item
+  border-radius: 10px
+  display: flex
+  justify-content: center
+  align-items: center
+  box-shadow: 0px 3px 4px 1px rgba(0, 0, 0, 0.2)
+  margin-right: 10px
 
-        .upload-container label
-          cursor: pointer
-          position: relative
-          display: flex
-          justify-content: center
-          align-items: center
-          position: relative
+  &:hover
+    background-color: #d6d6d6
+    .camera-icon
+      opacity: 1
 
-        .upload-container .camera-icon
-          position: absolute
-          opacity: 0
-          transition: opacity 0.5s ease
+.upload-container
+  display: flex
+  justify-content: center
+  align-items: center
+  position: relative
+  
+  label
+    display: flex
+    justify-content: center
+    align-items: center
+    cursor: pointer
+    position: relative
 
-        &--icon
-          width: 40px
-          height: 40px
-          fill: #2C363F
-
-      &_item:hover
-        background-color: #d6d6d6
-
-        .camera-icon
-          opacity: 1
+.camera-icon
+  position: absolute
+  opacity: 0
+  transition: opacity 0.5s ease
+  width: 40px
+  height: 40px
+  fill: #2C363F

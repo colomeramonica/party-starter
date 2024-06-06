@@ -1,44 +1,37 @@
-import React, { useCallback, useState } from 'react'
+import React, { ChangeEvent, useCallback, useState } from 'react'
 import UserPhoto from '../components/UserPhoto'
 import { ReactComponent as UserIcon } from '../assets/icons/user_circle.svg'
 import { ReactComponent as WriteIcon } from '../assets/icons/write.svg'
+import { ReactComponent as CloseIcon } from '../assets/icons/close.svg'
 import { ReactComponent as RaceIcon } from '../assets/icons/user_crown.svg'
 import { ReactComponent as ClassIcon } from '../assets/icons/witch.svg'
-import { ReactComponent as CameraIcon } from '../assets/icons/camera.svg'
-
-import { Box, Button, TextField, Select, MenuItem, InputLabel, FormControl, InputAdornment, ListItemIcon, ListItemText, SelectChangeEvent } from '@mui/material'
+import classes from '../data/DnDClasses';
+import races from '../data/DnDRaces';
+import {
+  Button, TextField, Select, MenuItem, InputLabel, FormControl,
+  InputAdornment, Autocomplete
+} from '@mui/material'
+import NavBar from '../components/NavBar'
+import PhotoGallery from '../components/PhotoGallery'
 
 const ProfilePage: React.FC = () => {
   const [state, setState] = useState({
     name: 'Mollymauk',
     description: 'The best character',
     race: 'Tiefling',
-    class: 'Blood Hunter'
+    classes: [] as Array<string>
   });
 
-  const [image, setImage] = useState<string | null>(null);
-
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImage(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-
-  const handleChange = useCallback((name: string, value: string) => {
+  const handleChange = useCallback((name: string, value: string | string[]) => {
     setState((prevState) => ({
       ...prevState,
-      [name]: value,
+      [name]: Array.isArray(value) ? value : value.toString(),
     }));
   }, [setState]);
 
   return (
     <form>
+      <NavBar />
       <div className="profile_page__photo-frame">
         <UserPhoto />
       </div>
@@ -83,25 +76,37 @@ const ProfilePage: React.FC = () => {
           />
         </div>
         <div className="profile_page__section_info_input">
-          <Select
-            className="profile_page__section_info_input--select"
-            size="small"
-            id="race-select"
-            value={state.race}
-            placeholder={state.race}
-            onChange={() => handleChange('race', state.race)}
-            color="secondary">
-          </Select>
+          <FormControl fullWidth className="profile_page__section_info_input">
+            <InputLabel id="demo-simple-select-label">Race</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={state.race}
+              label="Race"
+              onChange={(event) => handleChange('race', event.target.value)}
+            >
+              {Object.entries(races).map(([raceName, raceData]) => (
+                <MenuItem value={raceName}>{raceName}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </div>
         <div className="profile_page__section_info_input">
-          <Select
-            size="small"
-            id="class-select"
-            value={state.class}
-            placeholder={state.class}
-            onChange={() => handleChange('class', state.class)}
-            color="secondary">
-          </Select>
+          <Autocomplete
+            multiple
+            options={Object.values(classes)}
+            getOptionLabel={(option) => option}
+            onChange={(event, value) => {
+              handleChange('classes', value)
+            }}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                variant="outlined"
+                label="Class"
+              />
+            )}
+          />
         </div>
       </div>
       <div className="profile_page__section_gallery">
@@ -109,35 +114,7 @@ const ProfilePage: React.FC = () => {
           <h3>Photo Gallery</h3>
         </div>
         <div className="profile_page__section_gallery_images">
-          <Box className="profile_page__section_gallery_images_item" height={100} width={100} component="section" sx={{ p: 2, border: '1px solid grey' }}>
-            <div className="upload-container">
-              <input type="file" id="file-input" onChange={handleImageUpload} hidden />
-              <label htmlFor="file-input">
-                <CameraIcon className="camera-icon" style={{
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: '30px',
-                  height: '30px',
-                  fill: '#2C363F'
-                }} />
-              </label>
-            </div>
-            {image && <img className="profile_page__section_gallery_images_preview" src={image} alt="Preview" style={{ width: '95px', height: '95px', objectFit: 'contain' }} />}
-          </Box>
-          <Box className="profile_page__section_gallery_images_item" height={100} width={100} component="section" sx={{ p: 2, border: '1px solid grey' }}>
-            <div className="upload-container">
-              <input type="file" id="file-input" onChange={handleImageUpload} hidden />
-              <label htmlFor="file-input">
-                <CameraIcon className="camera-icon" style={{
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: '30px',
-                  height: '30px',
-                  fill: '#2C363F'
-                }} />
-              </label>
-            </div>
-          </Box>
+          <PhotoGallery />
         </div>
       </div>
       <div className="profile_page__actions">
