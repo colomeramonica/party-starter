@@ -95,25 +95,94 @@ code
     background: linear-gradient(to top, #59121F, #EC4A4A)
 
 .user_photo
-  padding: 7px
-  .user_photo--frame
+  display: flex
+  flex-direction: column
+  justify-content: center
+  padding: 5px 10px
+  &__frame
     border-radius: 50%
     width: 100px
     height: 100px
 
-.profile_page
-  &__info_input
-    padding: 10px
-
-  &__info_select
+  &__name
     display: flex
-    justify-content: flex-start
-    padding: 10px
-    align-items: center
-    flex-wrap: nowrap
+    justify-content: center
+    margin-top: 10px
+
+.profile_page
+  &__section_title
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: flex-start
+    padding: 5px 10px
+
+  &__photo-frame
+    display: flex
+    justify-content: center
+    margin-top: 20px
+
+  &__section_info
+    &_input
+      display: flex
+      flex-direction: column
+      justify-content: center
+      padding: 5px 10px
+
+      &--select
+        display: flex
+        flex-direction: column
+        justify-content: center
+        padding: 5px 10px
 
   &__actions
     display: flex
     flex-direction: row
     justify-content: flex-end
-    padding: 10px
+    padding: 5px 10px
+
+  &__section_gallery
+    margin-right: 10px
+    &_images
+      display: flex
+      flex-direction: row
+      justify-content: flex-start
+      padding: 5px 10px
+
+      &_preview
+        border-radius: 10px
+        display: flex
+        justify-content: center
+        align-items: center
+
+      &_item
+        border-radius: 10px
+        display: flex
+        justify-content: center
+        align-items: center
+        box-shadow: 0px 3px 4px 1px rgba(0, 0, 0, 0.2)
+        margin-right: 10px
+
+        .upload-container label
+          cursor: pointer
+          position: relative
+          display: flex
+          justify-content: center
+          align-items: center
+          position: relative
+
+        .upload-container .camera-icon
+          position: absolute
+          opacity: 0
+          transition: opacity 0.5s ease
+
+        &--icon
+          width: 40px
+          height: 40px
+          fill: #2C363F
+
+      &_item:hover
+        background-color: #d6d6d6
+
+        .camera-icon
+          opacity: 1
