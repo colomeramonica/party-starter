@@ -1,9 +1,6 @@
-import React, { useCallback, useState } from 'react'
-import UserPhoto from '../components/UserPhoto'
-import { ReactComponent as UserIcon } from '../assets/icons/user_circle.svg'
-import { ReactComponent as WriteIcon } from '../assets/icons/write.svg'
-import { ReactComponent as RaceIcon } from '../assets/icons/user_crown.svg'
-import { ReactComponent as ClassIcon } from '../assets/icons/witch.svg'
+import React, { useCallback, useEffect, useState } from 'react'
+import {storage} from '../utils/firebaseConfig'
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
 import { ReactComponent as CameraIcon } from '../assets/icons/camera.svg'
 
 import { Box } from '@mui/material'
@@ -14,11 +11,24 @@ const PhotoGallery: React.FC = () => {
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImage(reader.result as string);
-      };
-      reader.readAsDataURL(file);
+      const storageRef  = ref(storage, `images/${file.name}`);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+      uploadTask.on(
+        "state_changed",
+        (snapshot: any) => {
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log("Upload is " + progress + "% done");
+        },
+        (error: any) => {
+          console.error("Upload error:", error);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL: string) => {
+            console.log('File available at', downloadURL);
+          setImage(downloadURL); 
+          });
+        }
+      );
     }
   };
 
