@@ -1,9 +1,9 @@
-import { Check, Close } from "@mui/icons-material"
-import { Button } from "@mui/material"
 import React, { useEffect, useState } from "react"
-
+import { ReactComponent as CloseIcon } from '../assets/icons/close.svg'
+import { ReactComponent as CheckIcon } from '../assets/icons/check.svg'
+import { Button } from "@mui/material";
 export const ActionButton: React.FC<{ type: string }> = ({ type }) => {
-  const [buttonIcon, setButtonIcon] = useState(<Check />);
+  const [buttonIcon, setButtonIcon] = useState(<CheckIcon />);
 
   useEffect(() => {
     setButtonStyle();
@@ -11,14 +11,14 @@ export const ActionButton: React.FC<{ type: string }> = ({ type }) => {
 
   const setButtonStyle = () => {
     if (type === 'decline') {
-      return setButtonIcon(<Close />)
+      return setButtonIcon(<CloseIcon style={{ width: '20px', height: '30px', fill: '#FFFFFF' }} />)
     }
 
-    return setButtonIcon(<Check />)
+    return setButtonIcon(<CheckIcon style={{ width: '20px', height: '30px', fill: '#FFFFFF' }} />)
   }
 
   return (
-    <Button className={`action_button-${type}`} variant="contained" >
+    <Button className={`action_button--${type}`} variant="contained" >
       {buttonIcon}
     </Button >
   )
