@@ -21,7 +21,6 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "client/src",
-    "tsconfig.json"
+    "src"
   ]
 }
