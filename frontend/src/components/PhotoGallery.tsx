@@ -8,26 +8,26 @@ const PhotoGallery: React.FC = () => {
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (file) {
-      const storageRef  = ref(storage, `images/${file.name}`);
-      const uploadTask = uploadBytesResumable(storageRef, file);
-      uploadTask.on(
-        "state_changed",
-        (snapshot: any) => {
-          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log("Upload is " + progress + "% done");
-        },
-        (error: any) => {
-          console.error("Upload error:", error);
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL: string) => {
-            console.log('File available at', downloadURL);
-          setImage(downloadURL); 
-          });
-        }
-      );
-    }
+    // if (file) {
+    //   const storageRef  = ref(storage, `images/${file.name}`);
+    //   const uploadTask = uploadBytesResumable(storageRef, file);
+    //   uploadTask.on(
+    //     "state_changed",
+    //     (snapshot: any) => {
+    //       const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+    //       console.log("Upload is " + progress + "% done");
+    //     },
+    //     (error: any) => {
+    //       console.error("Upload error:", error);
+    //     },
+    //     () => {
+    //       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL: string) => {
+    //         console.log('File available at', downloadURL);
+    //       setImage(downloadURL); 
+    //       });
+    //     }
+    //   );
+    // }
   };
 
   return (

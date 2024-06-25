@@ -3,8 +3,10 @@
     "target": "es2020",
     "moduleResolution": "node",
     "lib": [
-      "es2020"
+      "es2020",
+      "dom"
     ],
+    "jsx": "react-jsx",
     "sourceMap": true,
     "outDir": "dist",
     "strict": true,
@@ -35,8 +37,8 @@
     "emitDecoratorMetadata": true
   },
   "include": [
-    "frontend/src/**/*.ts",
-    "./test/**/*.ts"
+    "src/**/*.tsx",
+    "src/**/*.ts",
   ],
   "exclude": [
     "./node_modules/*",
