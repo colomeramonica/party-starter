@@ -5,7 +5,11 @@ import { ReactComponent as CameraIcon } from '../assets/icons/camera.svg';
 import { Box } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
 
-const PhotoGallery: React.FC = () => {
+type PhotoGalleryProps = {
+  onFileUpload: (imageUrls: string[]) => void;
+};
+
+const PhotoGallery: React.FC<PhotoGalleryProps> = ({onFileUpload}) => {
   const [boxes, setBoxes] = useState<{ id: string; imageUrl: string | null }[]>([{ id: uuidv4(), imageUrl: null }]);
 
   useEffect(() => {
@@ -15,6 +19,10 @@ const PhotoGallery: React.FC = () => {
       const imageUrls = await Promise.all(
         imageFiles.items.map((item) => getDownloadURL(ref(storage, item.fullPath)))
       );
+
+      if (onFileUpload) {
+        onFileUpload(imageUrls)
+      }
 
       const imageBoxes = imageUrls.map((url) => ({
         id: uuidv4(),
