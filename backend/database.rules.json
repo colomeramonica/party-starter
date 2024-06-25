@@ -1,0 +1,8 @@
+{
+  "rules": {
+    "src": {
+      ".read": true,
+      ".write": true
+    }
+  }
+}
