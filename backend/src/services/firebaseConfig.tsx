@@ -1,20 +1,21 @@
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 import { getStorage } from "firebase/storage";
+import dotenv from 'dotenv';
+dotenv.config();
+
 const firebaseConfig = {
-  apiKey: "AIzaSyDSZrTCePCwuKdihGp5IdxS_kWH7Pfo_co",
-  authDomain: "party-starter-c5bf0.firebaseapp.com",
-  databaseURL: "https://party-starter-c5bf0-default-rtdb.firebaseio.com",
-  projectId: "party-starter-c5bf0",
-  storageBucket: "party-starter-c5bf0.appspot.com",
-  messagingSenderId: "126637866382",
-  appId: "1:126637866382:web:293e8d41e74873041c38df",
-  measurementId: "G-28SS7YTGVQ"
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.FIREBASE_DATABASE_URL,
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.FIREBASE_APP_ID,
+  measurementId: process.env.FIREBASE_MEASUREMENT_ID
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const storage = getStorage(app);
+const firebaseApp = initializeApp(firebaseConfig);
+const storage = getStorage(firebaseApp);
 
-export { storage, analytics, app }
+export { storage, firebaseApp }
