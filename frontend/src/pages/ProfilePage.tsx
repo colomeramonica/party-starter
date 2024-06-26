@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback, useEffect, useState } from 'react'
+import React, {useCallback, useState } from 'react'
 import UserPhoto from '../components/UserPhoto'
 import { ReactComponent as UserIcon } from '../assets/icons/user_circle.svg'
 import { ReactComponent as WriteIcon } from '../assets/icons/write.svg'
@@ -6,7 +6,7 @@ import classes from '../data/DnDClasses';
 import races from '../data/DnDRaces';
 import {
   Button, TextField, Select, MenuItem, InputLabel, FormControl,
-  InputAdornment
+  InputAdornment, Autocomplete
 } from '@mui/material'
 import NavBar from '../components/NavBar'
 import PhotoGallery from '../components/PhotoGallery'
@@ -22,16 +22,26 @@ const ProfilePage: React.FC = () => {
   const [images, setImages] = useState<string[]>([]);
   const [error, setError] = useState<string>('');
 
+  // const fetchImageUrls = async () => {
+  //   const imagesRef = ref(storage, 'images/');
+  //   try {
+  //     const result = await listAll(imagesRef);
+  //     for (const itemRef of result.items) {
+  //       const url = await getDownloadURL(itemRef);
+  //       setImages((prevImages) => [...prevImages, url]);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching image URLs:", error);
+  //     return [];
+  //   }
+  // };
+
   const handleChange = useCallback((name: string, value: string | string[]) => {
     setState((prevState) => ({
       ...prevState,
       [name]: Array.isArray(value) ? value : value.toString(),
     }));
   }, [setState]);
-
-  const onFileUpload = (files: string[]) => {
-    setImages((prevState) => [...prevState, ...files]);
-  }
 
   return (
     <form>
@@ -89,27 +99,28 @@ const ProfilePage: React.FC = () => {
               label="Race"
               onChange={(event) => handleChange('race', event.target.value)}
             >
-              {Object.entries(races).map(([raceName]) => (
+              {Object.entries(races).map(([raceName, raceData]) => (
                 <MenuItem value={raceName}>{raceName}</MenuItem>
               ))}
             </Select>
           </FormControl>
         </div>
         <div className="profile_page__section_info_input">
-        <FormControl fullWidth className="profile_page__section_info_input">
-            <InputLabel id="demo-simple-select-label">Class</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={state.classes}
-              label="class"
-              onChange={(event) => handleChange('classes', event.target.value)}
-            >
-              {Object.entries(classes).map(([className]) => (
-                <MenuItem value={className}>{className}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+          <Autocomplete
+            multiple
+            options={Object.values(classes)}
+            getOptionLabel={(option) => option}
+            onChange={(event, value) => {
+              handleChange('classes', value)
+            }}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                variant="outlined"
+                label="Class"
+              />
+            )}
+          />
         </div>
       </div>
       <div className="profile_page__section_gallery">
@@ -117,7 +128,7 @@ const ProfilePage: React.FC = () => {
           <h3>Photo Gallery</h3>
         </div>
         <div className="profile_page__section_gallery_images">
-          <PhotoGallery onFileUpload={onFileUpload}/>
+          <PhotoGallery />
         </div>
       </div>
       <div className="profile_page__actions">
