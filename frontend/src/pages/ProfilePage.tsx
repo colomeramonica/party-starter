@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback, useEffect, useState } from 'react'
+import React, {useCallback, useState } from 'react'
 import UserPhoto from '../components/UserPhoto'
 import { ReactComponent as UserIcon } from '../assets/icons/user_circle.svg'
 import { ReactComponent as WriteIcon } from '../assets/icons/write.svg'
@@ -10,8 +10,6 @@ import {
 } from '@mui/material'
 import NavBar from '../components/NavBar'
 import PhotoGallery from '../components/PhotoGallery'
-import { getDownloadURL, listAll, ref } from 'firebase/storage'
-import { storage } from '../utils/firebaseConfig'
 
 const ProfilePage: React.FC = () => {
   const [state, setState] = useState({
@@ -24,19 +22,19 @@ const ProfilePage: React.FC = () => {
   const [images, setImages] = useState<string[]>([]);
   const [error, setError] = useState<string>('');
 
-  const fetchImageUrls = async () => {
-    const imagesRef = ref(storage, 'images/');
-    try {
-      const result = await listAll(imagesRef);
-      for (const itemRef of result.items) {
-        const url = await getDownloadURL(itemRef);
-        setImages((prevImages) => [...prevImages, url]);
-      }
-    } catch (error) {
-      console.error("Error fetching image URLs:", error);
-      return [];
-    }
-  };
+  // const fetchImageUrls = async () => {
+  //   const imagesRef = ref(storage, 'images/');
+  //   try {
+  //     const result = await listAll(imagesRef);
+  //     for (const itemRef of result.items) {
+  //       const url = await getDownloadURL(itemRef);
+  //       setImages((prevImages) => [...prevImages, url]);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching image URLs:", error);
+  //     return [];
+  //   }
+  // };
 
   const handleChange = useCallback((name: string, value: string | string[]) => {
     setState((prevState) => ({

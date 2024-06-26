@@ -1,0 +1,30 @@
+{
+  "name": "party_starter_backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "tsx src/index.ts",
+    "dev": "tsx --watch --no-warnings src/index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/module-alias": "^2.0.4",
+    "@types/node": "^20.14.8",
+    "dotenv": "^16.4.5",
+    "firebase": "^10.12.2",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.5",
+    "ts-node-dev": "^2.0.0",
+    "tsx": "^4.15.7",
+    "typescript": "^5.5.2"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "module-alias": "^2.2.3"
+  }
+}
