@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "tsc --outDir dist",
+    "build": "tsc",
     "start": "tsx src/index.ts",
     "dev": "tsx --watch --no-warnings src/index.ts"
   },
