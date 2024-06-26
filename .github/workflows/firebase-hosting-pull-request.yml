@@ -19,3 +19,4 @@ jobs:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PARTY_STARTER_C5BF0 }}
           projectId: party-starter-c5bf0
+          entryPoint: backend
